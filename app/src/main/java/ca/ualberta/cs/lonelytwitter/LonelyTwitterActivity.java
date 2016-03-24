@@ -21,10 +21,11 @@ public class LonelyTwitterActivity extends Activity {
     private ListView oldTweetsList;
 
     private TweetList myTweets;
-    private ArrayList<Tweet> tweets;
+    //private ArrayList<Tweet> tweets;
     private ArrayAdapter<Tweet> adapter;
 
-    private Button saveButton;
+    // Changed button to private 
+    //private Button saveButton;
 
     public ArrayAdapter<Tweet> getAdapter() {
         return adapter;
@@ -45,6 +46,7 @@ public class LonelyTwitterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        Button saveButton;
         bodyText = (EditText) findViewById(R.id.tweetMessage);
         oldTweetsList = (ListView) findViewById(R.id.tweetsList);
 
@@ -66,7 +68,7 @@ public class LonelyTwitterActivity extends Activity {
                 String text = bodyText.getText().toString();
                 NormalTweet latestTweet = new NormalTweet(text);
 
-                myTweets.add(latestTweet);
+                myTweets.addNew(latestTweet);
 
                 latestTweet.addThumbnail(thumbnail);
                 adapter.insert(latestTweet, 0);
@@ -91,6 +93,9 @@ public class LonelyTwitterActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        // Made local Varaible
+        ArrayList<Tweet> tweets;
 
         // Get the latest tweets from Elasticsearch
         ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
